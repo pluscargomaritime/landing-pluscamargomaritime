@@ -9,9 +9,6 @@ zone_id = "e7afcbe2485f02806cf33d16da65ff98"
 command = "pnpm run build"
 cwd = "."
 
-[build.upload]
-format = "service-worker"
-
 [env.production]
 name = "pluscargomaritime-landing"
 routes = [
@@ -21,4 +18,3 @@ routes = [
 
 [assets]
 directory = "dist"
-binding = "ASSETS"
