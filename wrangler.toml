@@ -1,0 +1,24 @@
+name = "cargo-maritime-landing"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+
+[build]
+command = "pnpm run build"
+cwd = "."
+
+[build.upload]
+format = "service-worker"
+
+[env.production]
+name = "cargo-maritime-landing"
+routes = [
+  { pattern = "cargo-maritime.com", zone_id = "" },
+  { pattern = "*.cargo-maritime.com", zone_id = "" }
+]
+
+[assets]
+directory = "dist"
+binding = "ASSETS"
