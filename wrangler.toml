@@ -1,9 +1,9 @@
-name = "cargo-maritime-landing"
+name = "pluscargomaritime-landing"
 type = "javascript"
 account_id = ""
 workers_dev = true
 route = ""
-zone_id = ""
+zone_id = "e7afcbe2485f02806cf33d16da65ff98"
 
 [build]
 command = "pnpm run build"
@@ -13,10 +13,10 @@ cwd = "."
 format = "service-worker"
 
 [env.production]
-name = "cargo-maritime-landing"
+name = "pluscargomaritime-landing"
 routes = [
-  { pattern = "cargo-maritime.com", zone_id = "" },
-  { pattern = "*.cargo-maritime.com", zone_id = "" }
+  { pattern = "pluscargomaritime.com", zone_id = "e7afcbe2485f02806cf33d16da65ff98" },
+  { pattern = "www.pluscargomaritime.com", zone_id = "e7afcbe2485f02806cf33d16da65ff98" }
 ]
 
 [assets]
