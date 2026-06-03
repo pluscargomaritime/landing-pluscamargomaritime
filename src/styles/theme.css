@@ -126,6 +126,156 @@
 
   body {
     @apply bg-background text-foreground;
+    cursor: none;
+  }
+
+  /* Gradient radial utility */
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle, var(--tw-gradient-stops));
+  }
+
+  /* Custom text selection */
+  ::selection {
+    background-color: rgba(233, 195, 73, 0.3);
+    color: #e5e2e1;
+  }
+
+  ::-moz-selection {
+    background-color: rgba(233, 195, 73, 0.3);
+    color: #e5e2e1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #131313;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #e9c349 0%, #c6a03d 100%);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #f0d060 0%, #d4af4a 100%);
+  }
+
+  /* Smooth transitions for all elements */
+  * {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Hide default cursor on desktop */
+  @media (min-width: 768px) {
+    * {
+      cursor: none !important;
+    }
+
+    a, button, input, textarea, select {
+      cursor: none !important;
+    }
+  }
+
+  /* Show default cursor on mobile */
+  @media (max-width: 767px) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(233, 195, 73, 0.3), 0 0 40px rgba(233, 195, 73, 0.2), 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(233, 195, 73, 0.5), 0 0 60px rgba(233, 195, 73, 0.3), 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   /**
