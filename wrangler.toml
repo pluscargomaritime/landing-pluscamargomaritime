@@ -4,6 +4,7 @@ account_id = ""
 workers_dev = true
 route = ""
 zone_id = "e7afcbe2485f02806cf33d16da65ff98"
+compatibility_date = "2026-06-03"
 
 [build]
 command = "pnpm run build"
