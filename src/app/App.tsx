@@ -40,13 +40,13 @@ export default function App() {
       <SocialLinks />
 
       {/* Scroll indicator */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10 animate-[fadeIn_1s_ease-out_2s] opacity-0 [animation-fill-mode:forwards] md:hidden">
+      {/* <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10 animate-[fadeIn_1s_ease-out_2s] opacity-0 [animation-fill-mode:forwards] md:hidden">
         <div className="flex flex-col items-center gap-2 opacity-60">
           <div className="w-6 h-10 border-2 border-[#e9c349] rounded-full flex items-start justify-center p-1">
             <div className="w-1.5 h-2 bg-[#e9c349] rounded-full animate-[pulse_2s_ease-in-out_infinite]" />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
