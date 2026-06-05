@@ -2,12 +2,15 @@ import { useState } from 'react';
 import svgPaths from '../../assets/svgPaths';
 import imgLogo from '../../assets/logo.png';
 
+const WORKER_URL = 'https://worker-cargomaritime.pluscargomaritime.workers.dev';
+
 export default function MainContent() {
   const [email, setEmail] = useState('');
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,17 +43,34 @@ export default function MainContent() {
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
+    setSubmitError(null);
     if (validateEmail(email) && !isSubmitting) {
       setIsSubmitting(true);
-      // Simular envío
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setIsSubmitted(true);
-      setIsSubmitting(false);
-      setTimeout(() => {
-        setEmail('');
-        setIsValid(null);
-        setIsSubmitted(false);
-      }, 3000);
+      try {
+        const res = await fetch(`${WORKER_URL}/api/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setIsSubmitted(true);
+          setTimeout(() => {
+            setEmail('');
+            setIsValid(null);
+            setIsSubmitted(false);
+            setSubmitError(null);
+          }, 3000);
+        } else {
+          setSubmitError(data.message || 'Something went wrong. Please try again.');
+          setIsValid(false);
+        }
+      } catch {
+        setSubmitError('Network error. Please check your connection and try again.');
+        setIsValid(false);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -176,7 +196,7 @@ export default function MainContent() {
             )}
             {!isSubmitted && isValid === false && email.length > 0 && (
               <p className="font-['Hanken_Grotesk'] text-[12px] text-red-400 animate-[fadeIn_0.3s_ease-out]">
-                Please enter a valid email address
+                {submitError || 'Please enter a valid email address'}
               </p>
             )}
             {!isSubmitted && isValid === true && (
