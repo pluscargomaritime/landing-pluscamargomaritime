@@ -144,68 +144,93 @@ export default function MainContent() {
         </div>
       </div>
 
-      {/* Newsletter Form mejorado */}
+      {/* Newsletter Form */}
       <div id="newsletter-section" className="flex flex-col items-start w-full max-w-[448px] pt-12 md:pt-[64px] animate-[fadeInUp_0.8s_ease-out_1.6s] opacity-0 [animation-fill-mode:forwards] scroll-mt-24">
-        <form onSubmit={handleSubmit} className="w-full">
-          <div className={`flex items-end w-full pb-[9px] relative transition-all duration-300 ${
-            isFocused ? 'border-b-2 border-[#e9c349]' :
-            isValid === false ? 'border-b-2 border-red-400' :
-            isValid === true ? 'border-b-2 border-green-400' :
-            'border-b border-[#988e90]'
-          }`}>
-            {/* Glow effect on focus */}
-            {isFocused && (
-              <div className="absolute inset-x-0 -bottom-1 h-[2px] bg-[#e9c349] blur-sm animate-[pulse_2s_ease-in-out_infinite]" />
-            )}
+        {isSubmitted ? (
+          <div className="w-full animate-[fadeInUp_0.5s_ease-out]">
+            <div className="relative p-6 md:p-8 rounded-2xl border border-[rgba(233,195,73,0.25)]">
+              {/* Gold glow background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[rgba(233,195,73,0.1)] via-transparent to-[rgba(233,195,73,0.05)] blur-xl rounded-2xl" />
 
-            <input
-              id="email-input"
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              placeholder="Register for priority launch access"
-              disabled={isSubmitted}
-              className={`flex-1 bg-transparent font-['Hanken_Grotesk'] text-[#cfc4c5] text-[14px] md:text-[16px] outline-none placeholder:text-[#cfc4c5] pb-[10px] pt-[9px] px-[12px] transition-all duration-300 ${
-                isFocused ? 'text-white' : ''
-              } ${isSubmitted ? 'opacity-50' : ''}`}
-            />
+              <div className="relative flex flex-col items-center text-center">
+                {/* Gold decorative lines */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[1px] bg-gradient-to-r from-transparent via-[#e9c349] to-transparent opacity-60" />
 
-            <button
-              type="submit"
-              disabled={!isValid || isSubmitting || isSubmitted}
-              className={`h-[32px] w-[16px] flex-shrink-0 transition-all duration-300 ${
-                isValid && !isSubmitting && !isSubmitted ? 'opacity-100 hover:scale-110 cursor-pointer' : 'opacity-50 cursor-not-allowed'
-              } ${isSubmitting ? 'animate-[pulse_1s_ease-in-out_infinite]' : ''}`}
-              aria-label="Submit"
-            >
-              <svg className="w-full h-full transition-transform duration-300" fill="none" preserveAspectRatio="none" viewBox="0 0 16 32">
-                <path d={svgPaths.p1e720300} fill="#E9C349" />
-              </svg>
-            </button>
+                {/* Checkmark circle */}
+                <div className="mt-4 mb-5 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-[rgba(233,195,73,0.12)] border border-[rgba(233,195,73,0.3)]">
+                  <svg className="w-6 h-6 md:w-7 md:h-7 text-[#e9c349]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+
+                <h3 className="font-['Noto_Serif'] text-[#e9c349] text-xl md:text-2xl font-semibold leading-tight mb-2">
+                  You're on the list!
+                </h3>
+
+                <p className="font-['Hanken_Grotesk'] text-[#cfc4c5] text-sm md:text-base leading-relaxed max-w-[320px]">
+                  Thank you for your interest. We'll notify you at{' '}
+                  <span className="text-[#e9c349] font-medium">{email}</span> when we launch.
+                </p>
+
+                {/* Bottom decorative line */}
+                <div className="mt-6 mb-2 w-1/4 h-[1px] bg-gradient-to-r from-transparent via-[rgba(233,195,73,0.4)] to-transparent" />
+              </div>
+            </div>
           </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="w-full">
+            <div className={`flex items-end w-full pb-[9px] relative transition-all duration-300 ${
+              isFocused ? 'border-b-2 border-[#e9c349]' :
+              isValid === false ? 'border-b-2 border-red-400' :
+              isValid === true ? 'border-b-2 border-green-400' :
+              'border-b border-[#988e90]'
+            }`}>
+              {isFocused && (
+                <div className="absolute inset-x-0 -bottom-1 h-[2px] bg-[#e9c349] blur-sm animate-[pulse_2s_ease-in-out_infinite]" />
+              )}
 
-          {/* Validation messages */}
-          <div className="mt-2 min-h-[20px]">
-            {isSubmitted && (
-              <p className="font-['Hanken_Grotesk'] text-[12px] text-green-400 animate-[fadeIn_0.3s_ease-out] flex items-center gap-2">
-                <span className="inline-block w-4 h-4 bg-green-400 rounded-full animate-[pulse_1s_ease-in-out_infinite]" />
-                Thank you! We'll notify you when we launch.
-              </p>
-            )}
-            {!isSubmitted && isValid === false && email.length > 0 && (
-              <p className="font-['Hanken_Grotesk'] text-[12px] text-red-400 animate-[fadeIn_0.3s_ease-out]">
-                {submitError || 'Please enter a valid email address'}
-              </p>
-            )}
-            {!isSubmitted && isValid === true && (
-              <p className="font-['Hanken_Grotesk'] text-[12px] text-green-400 animate-[fadeIn_0.3s_ease-out]">
-                Ready to join our launch list
-              </p>
-            )}
-          </div>
-        </form>
+              <input
+                id="email-input"
+                type="email"
+                value={email}
+                onChange={handleEmailChange}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                placeholder="Register for priority launch access"
+                className={`flex-1 bg-transparent font-['Hanken_Grotesk'] text-[#cfc4c5] text-[14px] md:text-[16px] outline-none placeholder:text-[#cfc4c5] pb-[10px] pt-[9px] px-[12px] transition-all duration-300 ${
+                  isFocused ? 'text-white' : ''
+                }`}
+              />
+
+              <button
+                type="submit"
+                disabled={!isValid || isSubmitting}
+                className={`h-[32px] w-[16px] flex-shrink-0 transition-all duration-300 ${
+                  isValid && !isSubmitting ? 'opacity-100 hover:scale-110 cursor-pointer' : 'opacity-50 cursor-not-allowed'
+                } ${isSubmitting ? 'animate-[pulse_1s_ease-in-out_infinite]' : ''}`}
+                aria-label="Submit"
+              >
+                <svg className="w-full h-full transition-transform duration-300" fill="none" preserveAspectRatio="none" viewBox="0 0 16 32">
+                  <path d={svgPaths.p1e720300} fill="#E9C349" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Validation messages */}
+            <div className="mt-2 min-h-[20px]">
+              {isValid === false && email.length > 0 && (
+                <p className="font-['Hanken_Grotesk'] text-[12px] text-red-400 animate-[fadeIn_0.3s_ease-out]">
+                  {submitError || 'Please enter a valid email address'}
+                </p>
+              )}
+              {isValid === true && (
+                <p className="font-['Hanken_Grotesk'] text-[12px] text-green-400 animate-[fadeIn_0.3s_ease-out]">
+                  Ready to join our launch list
+                </p>
+              )}
+            </div>
+          </form>
+        )}
       </div>
     </div>
   );
